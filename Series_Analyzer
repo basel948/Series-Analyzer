@@ -1,30 +1,50 @@
 #! /usr/bin/bash
 
 Check_args(){ #Tasneem
+echo "Check_args"
 }
 
 Replace() { #Tasneem
+echo "Replace"
 }
 
 Print() { #Safa
+echo $@	
 }
 
 Sorted() { #Tasneem
+echo "Sorted"
 }
 
 Max() { #Safa
+max=$1
+	for num in "$@";do 
+	if (($num>$max)); then 
+		max=$num
+	fi
+	done
+	echo "$max"
 }
 
 Min() { #Safa
 }
-
+min=$1
+	for num in "$@";do 
+	if (($num<$min)); then 
+		min=$num
+	fi
+	done
+	echo "$min"
 Avg() { #Basel
+echo "Avg"
 }
 
 Count() { #Basel
+echo "Count"
 }
 
 Sum() { #Basel
+echo "Sum"
 }
 
 PS3="Please make a selection => "
@@ -40,16 +60,16 @@ do
             Replace
         ;;
         Print)
-            Print
+            Print $@   
         ;;
         Sorted)
             Sorted
         ;;
         Max)
-            Max
+             Max $@
         ;;
         Min)
-            Min
+            Min $@
         ;;
         Avg)
             Avg
