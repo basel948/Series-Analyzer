@@ -27,7 +27,6 @@ max=$1
 }
 
 Min() { #Safa
-}
 min=$1
 	for num in "$@";do 
 	if (($num<$min)); then 
@@ -35,16 +34,45 @@ min=$1
 	fi
 	done
 	echo "$min"
-Avg() { #Basel
-echo "Avg"
 }
 
-Count() { #Basel
-echo "Count"
+# Basel
+# This Avg Function calculates the average of all of the inputs 
+Avg() { 
+# here we need to know how many inputs do we have
+# we can use the Count Function do get that result
+local count=$(Count)
+local sum=$(sum)
+local avg=$((sum / count))
+
+    echo "The Average of the series is: $avg"
+    return $avg
 }
 
-Sum() { #Basel
-echo "Sum"
+# Basel
+# This Count Function counts the number of the elements in the series 
+Count() {
+    # here we create a local variable 
+    local counter=0 
+    # we go through the inputs array and increment the counter every lap
+    for input in "${inputs[@]}"; do
+        ((counter++))
+    done
+    echo "The Number of elements in the series: $counter"
+    return $counter;
+}
+
+# Basel
+# This Sum Function sums the numbers of the inputs array 
+Sum() { 
+    # here we create a local variable 
+    local sum=0 
+    # we go through the inputs array and add the value to the sum variable 
+    for input in "${inputs[@]}"; do
+        ((sum+=input))
+    done
+    echo "The Sum of the series $sum"
+    return $sum;
 }
 
 PS3="Please make a selection => "
