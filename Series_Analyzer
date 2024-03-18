@@ -1,0 +1,71 @@
+#! /usr/bin/bash
+
+Check_args() {
+}
+
+add() {
+}
+subtract() {
+}
+multiply() {
+}
+divide() {
+}
+power() {
+}
+modulus() {
+}
+is_prime() {
+}
+is_odd_even() {
+}
+is_div_by_five() {
+}
+
+PS3="Please make a selection => "
+menu="——-"
+menuu="\n1) — \n2) —\n3) —\n4) —\n5) —\n6) —\n7) Exit"
+while true
+do
+select action in $menu
+do
+case $action in
+-)
+Check_args
+-
+echo -e $menuu
+;;
+-)
+Check_args
+-
+echo -e $menuu
+;;
+-)
+Check_args
+-
+echo -e $menuu
+;;
+Divide)
+Check_args
+divide
+echo -e $menuu
+;;
+Power)
+Check_args
+power
+echo -e $menuu
+;;
+Modulos)
+Check_args
+modulus
+echo -e $menuu
+;;
+Exit)
+exit
+;;
+*) echo "ERROR: Invalid selection"
+echo -e $menuu
+;;
+esac
+done
+done
