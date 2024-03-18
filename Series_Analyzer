@@ -1,71 +1,71 @@
 #! /usr/bin/bash
 
-Check_args() {
+Check_args(){ #Tasneem
 }
 
-add() {
+Replace() { #Tasneem
 }
-subtract() {
+
+Print() { #Safa
 }
-multiply() {
+
+Sorted() { #Tasneem
 }
-divide() {
+
+Max() { #Safa
 }
-power() {
+
+Min() { #Safa
 }
-modulus() {
+
+Avg() { #Basel
 }
-is_prime() {
+
+Count() { #Basel
 }
-is_odd_even() {
-}
-is_div_by_five() {
+
+Sum() { #Basel
 }
 
 PS3="Please make a selection => "
-menu="——-"
-menuu="\n1) — \n2) —\n3) —\n4) —\n5) —\n6) —\n7) Exit"
+menu="Replace Print Sorted Max Min Avg Count Sum"
+menuu="\n1)Replace\n2)Print\n3)Sorted\n4)Max\n5)Min\n6)Avg\n7)Count\n8)Sum\n9)Exit"
 while true
 do
-select action in $menu
-do
-case $action in
--)
-Check_args
--
-echo -e $menuu
-;;
--)
-Check_args
--
-echo -e $menuu
-;;
--)
-Check_args
--
-echo -e $menuu
-;;
-Divide)
-Check_args
-divide
-echo -e $menuu
-;;
-Power)
-Check_args
-power
-echo -e $menuu
-;;
-Modulos)
-Check_args
-modulus
-echo -e $menuu
-;;
-Exit)
-exit
-;;
-*) echo "ERROR: Invalid selection"
-echo -e $menuu
-;;
-esac
-done
+    select action in $menu
+    do
+        Check_args
+        case $action in
+        Replace)
+            Replace
+        ;;
+        Print)
+            Print
+        ;;
+        Sorted)
+            Sorted
+        ;;
+        Max)
+            Max
+        ;;
+        Min)
+            Min
+        ;;
+        Avg)
+            Avg
+        ;;
+        Count)
+            Count
+        ;;
+        Sum)
+            Sum
+        ;;
+        Exit)
+            exit
+        ;;
+        *) echo "ERROR: Invalid selection"
+        ;;
+        esac
+        echo -e $menuu
+    done
 done
