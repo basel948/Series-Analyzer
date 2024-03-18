@@ -1,119 +1,130 @@
 #! /usr/bin/bash
 
 Check_args(){ #Tasneem
-echo "Check_args"
+if [[ $# -ge 3 && $@ =~ ^[0-9\ ]+$ ]]; then
+    read -a array <<< "$@"
+fi
+
+while true; do
+    if [[ ${array[@]} =~ ^[0-9\ ]+$ && ${#array[@]} -ge 3 ]]; then
+        break
+    fi
+    read -p "Enter a Series of numbers: " nums
+    read -a array <<< "$nums"     
+done
+
+NUMS=${array[*]}
+unset array
 }
 
 Replace() { #Tasneem
-echo "Replace"
+set -- ""
+Check_args
 }
 
 Print() { #Safa
-echo $@	
+echo "$NUMS"
+return 0	
 }
 
-Sorted() { #Tasneem
-echo "Sorted"
+Sort() { #Tasneem
+printf "%s\n" "${NUMS[@]}" > file.txt
+tr ' ' '\n' < file.txt | sort -n | tr '\n' ' '
+rm file.txt
+echo
 }
 
 Max() { #Safa
-max=$1
-	for num in "$@";do 
-	if (($num>$max)); then 
-		max=$num
-	fi
-	done
-	echo "$max"
+local max=${1}
+for num in "${@:2}";do 
+    if (($num>$max)); then 
+        max=$num
+    fi
+done
+echo "$max"
+return $max
 }
 
 Min() { #Safa
-min=$1
-	for num in "$@";do 
-	if (($num<$min)); then 
-		min=$num
-	fi
-	done
-	echo "$min"
+local min=${1}
+for num in "${@:2}";do 
+    if (($num<$min)); then 
+	min=$num
+    fi
+done
+echo "$min"
+return $min
+}
+
+# Basel
+# This Count Function counts the number of the elements in the series 
+Count() {
+# here we create a local variable 
+local counter=0 
+    # we go through the inputs array and increment the counter every lap
+    for input in "${@:1}"; do
+        ((counter++))
+    done
+    echo "$counter"
+}
+
+# Basel
+# This Sum Function sums the numbers of the inputs array 
+Sum() { 
+# here we create a local variable 
+local sum=0 
+    # we go through the inputs array and add the value to the sum variable 
+    for input in "${@:1}"; do
+        ((sum+=input))
+    done
+    echo "$sum"
 }
 
 # Basel
 # This Avg Function calculates the average of all of the inputs 
 Avg() { 
 # here we need to know how many inputs do we have
-# we can use the Count Function do get that result
-local count=$(Count)
-local sum=$(sum)
-local avg=$((sum / count))
+# we can use the Count + Sum Function do get that result
+local count=$(Count ${NUMS[@]})
+local sum=$(Sum ${NUMS[@]})
+local avg=$((sum/count))
 
-    echo "The Average of the series is: $avg"
-    return $avg
-}
-
-# Basel
-# This Count Function counts the number of the elements in the series 
-Count() {
-    # here we create a local variable 
-    local counter=0 
-    # we go through the inputs array and increment the counter every lap
-    for input in "${inputs[@]}"; do
-        ((counter++))
-    done
-    echo "The Number of elements in the series: $counter"
-    return $counter;
-}
-
-# Basel
-# This Sum Function sums the numbers of the inputs array 
-Sum() { 
-    # here we create a local variable 
-    local sum=0 
-    # we go through the inputs array and add the value to the sum variable 
-    for input in "${inputs[@]}"; do
-        ((sum+=input))
-    done
-    echo "The Sum of the series $sum"
-    return $sum;
+echo "$avg"
+return $avg
 }
 
 PS3="Please make a selection => "
-menu="Replace Print Sorted Max Min Avg Count Sum"
-menuu="\n1)Replace\n2)Print\n3)Sorted\n4)Max\n5)Min\n6)Avg\n7)Count\n8)Sum\n9)Exit"
+menu="Replace Print Sort Max Min Avg Count Sum Exit"
+menuu="\n1) Replace\n2) Print\n3) Sort\n4) Max\n5) Min\n6) Avg\n7) Count\n8) Sum\n9) Exit"
 while true
 do
+    Check_args $@
     select action in $menu
     do
-        Check_args
+        echo
         case $action in
-        Replace)
-            Replace
+        Replace) echo "----Replacing Series---"; Replace
         ;;
-        Print)
-            Print $@   
+        Print) echo -n "----> The Series of numbers is: " ; Print
         ;;
-        Sorted)
-            Sorted
+        Sort) echo -n "----> The Sorted Series is: "; Sort
         ;;
-        Max)
-             Max $@
+        Max) echo -n "----> The Maximum number is: "; Max ${NUMS[@]}
         ;;
-        Min)
-            Min $@
+        Min) echo -n "----> The Minimum number is: "; Min ${NUMS[@]}
         ;;
-        Avg)
-            Avg
+        Avg) echo -n "----> The Average of the series is: "; Avg
         ;;
-        Count)
-            Count
+        Count) echo -n "The Number of elements in the series: "; Count ${NUMS[@]}
         ;;
-        Sum)
-            Sum
+        Sum) echo -n "The Sum of the series is: "; Sum ${NUMS[@]}
         ;;
-        Exit)
-            exit
+        Exit) exit
         ;;
-        *) echo "ERROR: Invalid selection"
+        *) echo "----> ERROR: Invalid selection"
         ;;
         esac
         echo -e $menuu
+        echo
     done
 done
