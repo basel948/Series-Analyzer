@@ -30,9 +30,7 @@ return 0
 }
 
 Sort() { #Tasneem
-printf "%s\n" "${NUMS[@]}" > file.txt
-tr ' ' '\n' < file.txt | sort -n | tr '\n' ' '
-rm file.txt
+for elm in ${NUMS[@]}; do echo $elm ; done | sort -n | tr "\n" " "
 echo
 }
 
@@ -105,7 +103,7 @@ do
     do
         echo
         case $action in
-        Replace) echo "----Replacing Series---"; Replace
+        Replace) echo "----Replacing The Series---"; Replace
         ;;
         Print) echo -n "----> The Series of numbers is: " ; Print
         ;;
@@ -117,9 +115,10 @@ do
         ;;
         Avg) echo -n "----> The Average of the series is: "; Avg
         ;;
-        Count) echo -n "The Number of elements in the series is: "; Count ${NUMS[@]}
+        Count) echo -n "----> The Number of elements in the series is: ";    
+               Count ${NUMS[@]}
         ;;
-        Sum) echo -n "The Sum of the series is: "; Sum ${NUMS[@]}
+        Sum) echo -n "----> The Sum of the series is: "; Sum ${NUMS[@]}
         ;;
         Exit) exit
         ;;
