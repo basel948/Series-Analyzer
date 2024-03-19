@@ -1,20 +1,22 @@
 #! /usr/bin/bash
 
 Check_args(){ #Tasneem
-if [[ $# -ge 3 && $@ =~ ^[0-9\ ]+$ ]]; then
-    read -a array <<< "$@"
-fi
-
-while true; do
-    if [[ ${array[@]} =~ ^[0-9\ ]+$ && ${#array[@]} -ge 3 ]]; then
-        break
+    if [[ $# -ge 3 && "$@" =~ ^[0-9\ ]+$ ]]; then
+        NUMS="$@"
+    else
+        while true; do
+            read -p "Enter a Series of numbers: " nums
+            echo
+            read -a array <<< "$nums"
+            if [[ ${#array[@]} -ge 3 && "$nums" =~ ^[0-9\ ]+$ ]]; then
+                NUMS=${array[*]}
+                unset array
+                break
+            else
+                echo "Invalid input. Please enter at least 3 numbers separated by spaces."
+            fi
+        done
     fi
-    read -p "Enter a Series of numbers: " nums
-    read -a array <<< "$nums"     
-done
-
-NUMS=${array[*]}
-unset array
 }
 
 Replace() { #Tasneem
@@ -61,7 +63,7 @@ return $min
 Count() {
 # here we create a local variable 
 local counter=0 
-    # we go through the inputs array and increment the counter every lap
+    # we loop through the inputs array and increment the counter every lap
     for input in "${@:1}"; do
         ((counter++))
     done
@@ -73,7 +75,7 @@ local counter=0
 Sum() { 
 # here we create a local variable 
 local sum=0 
-    # we go through the inputs array and add the value to the sum variable 
+    # we loop through the inputs array and add the value to the sum variable 
     for input in "${@:1}"; do
         ((sum+=input))
     done
@@ -87,10 +89,10 @@ Avg() {
 # we can use the Count + Sum Function do get that result
 local count=$(Count ${NUMS[@]})
 local sum=$(Sum ${NUMS[@]})
-local avg=$((sum/count))
+local avg=$(echo "scale=2; $sum / $count" | bc)
 
-echo "$avg"
-return $avg
+# here we used echo and not return because the return cant return a decimal/float numbers
+echo $avg
 }
 
 PS3="Please make a selection => "
@@ -115,7 +117,7 @@ do
         ;;
         Avg) echo -n "----> The Average of the series is: "; Avg
         ;;
-        Count) echo -n "The Number of elements in the series: "; Count ${NUMS[@]}
+        Count) echo -n "The Number of elements in the series is: "; Count ${NUMS[@]}
         ;;
         Sum) echo -n "The Sum of the series is: "; Sum ${NUMS[@]}
         ;;
