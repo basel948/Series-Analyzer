@@ -1,0 +1,91 @@
+#! /usr/bin/bash
+
+Check_args(){ #Tasneem
+
+    # A function for Validating the arguments 
+}
+
+Replace() { #Tasneem
+
+    # A function for Replacing series numbers
+}
+
+Print() { #Safa
+
+    # A function for Printing the series of numbers
+	
+}
+
+Sort() { #Tasneem
+
+    # A function for Sorting the series of numbers
+
+}
+
+Max() { #Safa
+
+    # A function for taking the Maximum Number of the series of numbers
+
+}
+
+Min() { #Safa
+
+    # A function for taking the Minimum Number of the series of numbers
+
+}
+
+# Basel
+Count() {
+
+    # A function for Counting the series of numbers
+
+}
+
+# Basel
+Sum() { 
+# here we create a local variable 
+
+    # A function for calculating the Sum of the series of numbers
+}
+
+# Basel
+Avg() { 
+
+    # A function for calculating the Average of the series of numbers
+}
+
+PS3="Please make a selection => "
+menu="Replace Print Sort Max Min Avg Count Sum Exit"
+menuu="\n1) Replace\n2) Print\n3) Sort\n4) Max\n5) Min\n6) Avg\n7) Count\n8) Sum\n9) Exit"
+while true
+do
+    Check_args $@
+    select action in $menu
+    do
+        echo
+        case $action in
+        Replace) # here we call the Replace function
+        ;;
+        Print) # here we call the Print function
+        ;;
+        Sort) # here we call the Sort function
+        ;;
+        Max) # here we call the Max function
+        ;;
+        Min) # here we call the Min function
+        ;;
+        Avg) # here we call the Avg function
+        ;;
+        Count) # here we call the Count function
+        ;;
+        Sum) # here we call the Sum function
+        ;;
+        Exit) # here we we Exit the menu
+        ;;
+        *) echo "----> ERROR: Invalid selection"
+        ;;
+        esac
+        echo -e $menuu
+        echo
+    done
+done
